@@ -1,0 +1,102 @@
+# Config file to store the prompt
+system_prompt = """
+Extract various information from the provided document (inside <document> </document> tags, attached at the end) for specific data points that will be requested in the prompts. Ensure to identify and interpret each data point accurately from varied forms, contexts and user input.
+
+- The system will specify data points to be extracted within <data_point> </data_point> tags, such as "number of employees," "whistleblower policy," etc. Your task is to locate the requested information within the provided documents.
+- The base prompt for each data point is specified within <base_prompt> </base_prompt> tags.
+- In each data point specification user may provide additional instructions within <user_prompt> </user_prompt> tags for each data point, which you should follow with highest priority.
+- Consider that the requested data points may appear in different forms, such as numerical values, text descriptions, or various phrases. Ensure to cover potential variations.
+- If multiple relevant values for the same data point are found, select the most relevant based on its context.
+
+
+# Steps
+
+1. Identify the specific data points requested.
+2. Scan the document for phrases or terms that match the data points.
+3. Extract the relevant information associated with each requested data point.
+4. Apply user instructions for each data point with highest priority.
+4. If ambiguous or multiple figures are found, use contextual analysis to select the most fitting value for each data point.
+5. If no relevant information is found, or it is very ambiguous, specify NA.
+
+# Notes
+
+- Round numbers to two decimal places.
+- Make sure to adapt the extraction to variations in phrasing or formatting of the requested data points.
+- Be flexible in interpreting values, such as numbers given as words ("fifty" instead of "50") or estimates ("approximately" or "about").
+- For cases with multiple potential values for the same data point, choose the one that appears most relevant to the current context.
+""" 
+
+visible_column_names = [
+    "generation_number",
+    "data_point_name",
+    "data_point_category",
+    "data_point_value",
+    "data_point_prompt",
+    "data_point_notes",
+    "data_point_new_notes",
+    "data_point_user_instructions",
+    "data_point_system_message"
+]
+
+max_tokens = 400000
+
+[revenue]
+prompt = "Extract the company revenue from the document."
+category = "document-sourced"
+value_type = "NUMBER"
+value_example = "1000000"
+
+[number_of_employees]
+prompt = "Extract the number of employees from the document."
+category = "document-sourced"
+value_type = "NUMBER"
+value_example = "1000"
+
+[carbon_neutrality_policy]
+prompt = "Extract the carbon neutrality policy from the document. Make it into 2 sentences."
+category = "document-sourced"
+value_type = "STRING"
+value_example = "We aim to be carbon neutral by 2030."
+
+[energy_consumption]
+prompt = "Extract the energy consumption from the document."
+category = "document-sourced"
+value_type = "NUMBER"
+value_example = "1000000"
+
+[energy_intensity]
+prompt = "energy_consumption * 1000 / revenue"
+category = "rule-based"
+value_type = "NUMBER"
+value_example = "1000000"
+
+[employee_energy_intensity]
+prompt = "energy_intensity / number_of_employees"
+category = "rule-based"
+value_type = "NUMBER"
+value_example = "1000000"
+
+[employee_revenue_intensity]
+prompt = "revenue / number_of_employees / 0"
+category = "rule-based"
+value_type = "NUMBER"
+value_example = "1000000"
+
+[ceo_name]
+prompt = "Extract the CEO name from the document."
+category = "document-sourced"
+user_instructions = "You can google for the name if you are not sure."
+value_type = "STRING"
+value_example = "John Doe"
+
+[GHG_reduction_strategy]
+prompt = "Extract the GHG reduction strategy from the document."
+category = "document-sourced"
+value_type = "STRING"
+value_example = "1000000"
+
+[total_fuel_consumption]
+prompt = "Extract the total fuel consumption from the document. It should be in metric tons of oil equivalent. It may be needed to sum some lower level data points to get the total."
+category = "document-sourced"
+value_type = "NUMBER"
+value_example = "1000000"

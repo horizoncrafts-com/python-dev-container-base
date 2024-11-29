@@ -1,0 +1,13 @@
+pytest>=7.0.0
+black>=23.0.0
+flake8>=6.0.0
+jupyterlab>=4.0.0 
+# streamlit
+# openai
+# PyPDF2
+# pydantic
+# python-dotenv
+# tiktoken
+# google-generativeai
+# google.ai.generativelanguage
+# pandas
