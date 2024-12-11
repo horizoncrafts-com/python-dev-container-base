@@ -7,8 +7,8 @@ httpx<0.25.0  # fix jupyterlab compatibility issue
 # openai
 # PyPDF2
 # pydantic
-# python-dotenv
+python-dotenv
 # tiktoken
-# google-generativeai
-# google.ai.generativelanguage
+google-generativeai
+google.ai.generativelanguage
 # pandas
