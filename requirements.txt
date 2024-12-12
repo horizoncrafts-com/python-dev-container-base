@@ -11,4 +11,5 @@ python-dotenv
 # tiktoken
 google-generativeai
 google.ai.generativelanguage
+google-api-python-client
 # pandas
